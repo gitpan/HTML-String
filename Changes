@@ -1,3 +1,6 @@
+1.000003 - 2013-09-12
+  - Fix concatenating strings that evaluate to false in a boolean context.
+
 1.000002 - 2013-01-03
   - Optimise _hsv_dot since it gets called heavily by HTML::String::TT
 

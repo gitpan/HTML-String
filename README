@@ -134,7 +134,8 @@ AUTHOR
     mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
 
 CONTRIBUTORS
-    dorward - David Dorward (cpan:DORWARD) <david@dorward.me.uk>
+    dorward - David Dorward (cpan:DORWARD) <david@dorward.me.uk> rafl -
+    Florian Ragwitz (cpan:FLORA) <rafl@debian.org>
 
 COPYRIGHT
     Copyright (c) 2012 the HTML::String "AUTHOR" and "CONTRIBUTORS" as

@@ -4,7 +4,7 @@ use strictures 1;
 use HTML::String::Value;
 use Exporter 'import';
 
-our $VERSION = '1.000002'; # 1.0.2
+our $VERSION = '1.000003'; # 1.0.3
 
 $VERSION = eval $VERSION;
 
@@ -158,6 +158,7 @@ mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
 =head1 CONTRIBUTORS
 
 dorward - David Dorward (cpan:DORWARD) <david@dorward.me.uk>
+rafl - Florian Ragwitz (cpan:FLORA) <rafl@debian.org>
 
 =head1 COPYRIGHT
 
