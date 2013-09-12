@@ -75,7 +75,7 @@ sub _hsv_unescaped_string {
 sub _hsv_dot {
     my ($self, $str, $prefix) = @_;
 
-    return $self unless length $str;
+    return $self unless defined $str && length $str;
 
     my @parts = @{$self->{parts}};
 

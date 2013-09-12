@@ -1,3 +1,6 @@
+1.000004 - 2013-09-12
+  - Fix concatenating undef to HTML::String values.
+
 1.000003 - 2013-09-12
   - Fix concatenating strings that evaluate to false in a boolean context.
 
