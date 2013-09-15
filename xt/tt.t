@@ -31,8 +31,8 @@ is(
 # Check we aren't nailed by https://rt.perl.org/rt3/Ticket/Display.html?id=49594
 
 is(
-    do_tt('<foo>"$bar"</foo>'."\n"),
-    '<foo>"$bar"</foo>'."\n"
+    do_tt('<foo>"$b\\ar"</foo>'."\n"),
+    '<foo>"$b\\ar"</foo>'."\n"
 );
 
 { # non-ASCII characters can also trigger the bug

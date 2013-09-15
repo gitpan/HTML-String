@@ -37,13 +37,13 @@ sub text {
 
     # The first two lines of the s! were assembled from the escape sequences
     # table in "Quote and Quote-like Operators" in perlop by Lucas Mai, then
-    # the last line handles sigils.
+    # the . handles any other single character escape (\$, \@, \\ etc.)
 
     my $str = perlstring $text;
     $str =~ s!
       \\ ( [abefnrt] | c. | o \{ [0-7]+ \} | x (?: \{ [[:xdigit:]]+ \}
            | [[:xdigit:]]{1,2} ) | N \{ [^{}]* \} | [0-7]{1,3}
-           | \$ | \@ )
+           | . )
       !"."\\$1"."!xg;
 
     return $str;
