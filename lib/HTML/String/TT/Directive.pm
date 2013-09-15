@@ -3,6 +3,7 @@ package HTML::String::TT::Directive;
 use strictures 1;
 use HTML::String::Overload ();
 use Data::Munge;
+use B qw(perlstring);
 use base qw(Template::Directive);
 
 sub template {
@@ -22,11 +23,30 @@ sub textblock {
 
 sub text {
     my ($class, $text) = @_;
-    for ($text) {
-        s/(["\$\@\\])/"."\\$1"."/g;
-        s/\n/"."\\n"."/g;
-    }
-    return '"' . $text . '"';
+
+    # We need to turn everything into escapes, including wide chars
+    # that will end up as e.g. \342\200\223 if 'use utf8' isn't in
+    # scope or \x{...} if it is. So we run it through perlstring first
+    # so everything is already a backslash escape sequence (because the
+    # exact same bug can apply to wide chars in place), and then hit
+    # it with an ugly regexp to turn it into e.g.
+    #
+    #   "<li>foo "."\342".""."\200".""."\223"." bar.</li>"
+    #
+    # which then gets overload::constant'ed appropriately.
+
+    # The first two lines of the s! were assembled from the escape sequences
+    # table in "Quote and Quote-like Operators" in perlop by Lucas Mai, then
+    # the last line handles sigils.
+
+    my $str = perlstring $text;
+    $str =~ s!
+      \\ ( [abefnrt] | c. | o \{ [0-7]+ \} | x (?: \{ [[:xdigit:]]+ \}
+           | [[:xdigit:]]{1,2} ) | N \{ [^{}]* \} | [0-7]{1,3}
+           | \$ | \@ )
+      !"."\\$1"."!xg;
+
+    return $str;
 }
 
 1;

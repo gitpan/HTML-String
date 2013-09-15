@@ -35,6 +35,16 @@ is(
     '<foo>"$bar"</foo>'."\n"
 );
 
+{ # non-ASCII characters can also trigger the bug
+
+    use utf8;
+
+    is(
+        do_tt('<li>foo – bar.</li>', {}),
+        '<li>foo – bar.</li>',
+    );
+}
+
 is(
     do_tt(
         '[% FOREACH item IN items %][% item %][% END %]',
@@ -45,5 +55,23 @@ is(
 );
 
 is( do_tt('"0"', {}), '"0"' );
+
+{
+    my $tmpl = q[
+        [%- MACRO test(name, value) BLOCK;
+            IF !value.length;
+               "ok";
+            END;
+        END; -%]
+[%- test("foo", "") -%]
+];
+
+    my $with_html_string_tt = do_tt($tmpl, {});
+
+    $tt = Template->new(STASH => Template::Stash->new);
+    my $with_template = do_tt($tmpl, {});
+
+    is $with_html_string_tt, $with_template;
+}
 
 done_testing;

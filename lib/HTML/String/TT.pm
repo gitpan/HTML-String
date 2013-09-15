@@ -18,6 +18,16 @@ use Template;
 use Template::Parser;
 use Template::Stash;
 
+BEGIN {
+  my $orig_blessed = Template::Stash->can('blessed');
+  no warnings 'redefine';
+  *Template::Stash::blessed = sub ($) {
+    my $val = $orig_blessed->($_[0]);
+    return undef if defined($val) and $val eq 'HTML::String::Value';
+    return $val;
+  };
+}
+
 sub new {
     shift;
     Template->new(

@@ -119,7 +119,7 @@ sub can {
     return (
         do {
             local $@;
-            eval { blessed($self) and $self->_hsv_unescaped_string->isa(@_) }
+            eval { blessed($self) and $self->_hsv_unescaped_string->can(@_) }
         }
         or $self->SUPER::can(@_)
     );
